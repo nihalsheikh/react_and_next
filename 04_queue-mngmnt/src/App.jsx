@@ -3,61 +3,54 @@ import Form from "./components/Form";
 import QueueList from "./components/QueueList";
 
 const App = () => {
-	const [queueList, setQueueList] = useState([]);
+	const [queue, setQueue] = useState([]);
 
 	// Take data from the Form and it to the array queue
-	const addToQueueList = (customerData) => {
-		setQueueList([...queueList], {
-			...customerData,
-			customerId: Date.now(),
-			status: "waiting",
-		});
+	const addToQueueList = (customer) => {
+		setQueue([
+			...queue,
+			{
+				...customer,
+				id: Date.now(),
+				status: "waiting",
+			},
+		]);
 	};
 
-	const updateStatus = (customerId, newStatus) => {
-		setQueueList(
-			queueList.map((customerData) => {
-				customerData.customerId === customerId
-					? { ...customerData, status: newStatus }
-					: customerData;
-			})
-		);
-	};
-
-	const removeFromQueueList = (customerId) => {
-		setQueueList(
-			queueList.filter(
-				(customerData) => customerData.customerId !== customerId
+	const updateStatus = (id, newStatus) => {
+		setQueue(
+			queue.map((customer) =>
+				customer.id === id
+					? { ...customer, status: newStatus }
+					: customer
 			)
 		);
 	};
 
+	const removeFromQueueList = (id) => {
+		setQueue(queue.filter((customer) => customer.id !== id));
+	};
+
 	return (
-		<>
-			<div className="flex flex-col bg-zinc-900 w-full min-h-screen">
-				<header className="flex justify-center flex-col items-center">
-					<h1 className="mt-8 font-bold text-4xl text-sky-400">
-						Project: Queue Management System
-					</h1>
-					<p className="mt-2 text-xl text-zinc-400">
-						Manage your clients efficiently
-					</p>
-				</header>
+		<div className="flex flex-col items-center justify-center max-w-7xl mx-auto bg-zinc-900 pb-4 h-screen">
+			<header>
+				<h1 className="text-4xl font-bold text-sky-500">
+					Project: Queue Management Application
+				</h1>
+				<p className="text-xl text-zinc-500 text-center mt-4">
+					Manage your customers efficiently
+				</p>
+			</header>
 
-				<main className="mt-32 flex flex-row gap-8 items-stretch justify-center">
-					{/* Form */}
-					<Form onAdd={addToQueueList} />
-
-					{/* Queue List */}
-					<QueueList
-						list={queueList}
-						onAdd={addToQueueList}
-						onUpdate={updateStatus}
-						onRemove={removeFromQueueList}
-					/>
-				</main>
-			</div>
-		</>
+			<main className="mt-24 flex justify-between gap-10">
+				<Form onAdd={addToQueueList} />
+				<QueueList
+					queue={queue}
+					onUpdateStatus={updateStatus}
+					onRemove={removeFromQueueList}
+				/>
+			</main>
+		</div>
 	);
 };
 

@@ -1,71 +1,68 @@
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { UserRoundPlus } from "lucide-react";
 import { useState } from "react";
 
-const categories = ["Select a category", "Consultation", "Payment", "Support"];
+const services = ["Select a Service", "Consultation", "Payment", "Support"];
 
 const Form = ({ onAdd }) => {
 	const [name, setName] = useState("");
-	const [category, setCategory] = useState();
+	const [service, setService] = useState("");
 
-	const handleSumbit = (event) => {
-		event.preventDefault();
+	const handleSubmit = (e) => {
+		e.preventDefault();
 
-		if (!name.trim() || !category.trim()) return;
+		// do some validations
+		if (!name || !service || service === "Select a Service") return;
 
-		onAdd({ name, category });
+		onAdd({ name, service });
 
-		// after value is submitted, make form empty
+		// reset the form
 		setName("");
-		setCategory("");
+		setService("");
 	};
 
 	return (
-		<div className="p-8 bg-zinc-800 rounded-xl">
-			<form onSubmit={handleSumbit} className="flex flex-col">
-				<h1 className="mb-10 text-4xl font-bold text-sky-500">
-					Add to Queue
-				</h1>
-				{/* Customer Name */}
-				<label htmlFor="customer" className="text-zinc-100 mb-2">
+		<div className="flex flex-col left-0 bg-zinc-600 p-4 border-2 border-zinc-400 rounded-sm">
+			<h1 className="text-sky-500 text-4xl text-center font-bold">
+				Queue Form
+			</h1>
+			<form className="flex flex-col text-xl text-zinc-50">
+				{/* Name */}
+				<label htmlFor="name" className="mt-8 mb-2">
 					Customer Name
 				</label>
 				<input
-					id="customer"
+					type="text"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
-					type="text"
-					placeholder="Enter Customer Name"
-					className="bg-zinc-700 border-2 border-zinc-500 text-xl text-zinc-50 font-semibold rounded-md p-2 mb-8"
+					placeholder="Enter name..."
+					className="p-4 border-2 border-zinc-700 bg-zinc-800 mb-4"
 				/>
 
-				{/* Select Category */}
-				<label htmlFor="category" className="text-zinc-100 mb-2">
-					Category
+				{/* Select Category of Service */}
+				<label htmlFor="service" className="mt-2 mb-2">
+					Select Category
 				</label>
 				<select
-					value={category}
-					onChange={(e) => setCategory(e.target.value)}
-					className="bg-zinc-700 border-2 border-zinc-500 text-xl text-zinc-400 font-semibold rounded-md p-2 mb-2"
+					name="service"
+					value={service}
+					onChange={(e) => setService(e.target.value)}
+					id=""
+					className="p-4 border-2 border-zinc-700 bg-zinc-800"
 				>
-					{categories.map((item) => (
-						<option key={item} value={item}>
-							{item}
+					{services.map((service) => (
+						<option key={service} value={service}>
+							{service}
 						</option>
 					))}
 				</select>
 
 				<button
 					type="submit"
-					className="justify-center items-center mt-10 p-4 bg-sky-950 border-2 border-sky-700 w-full text-xl text-zinc-50 cursor-pointer rounded-xl  hover:bg-sky-500 hover:border-sky-800 font-bold flex gap-4"
+					onClick={handleSubmit}
+					className="flex p-4 w-full bg-sky-950 border-2 border-sky-700 mt-10 gap-5 items-center justify-center hover:border-sky-500 hover:text-zinc-50 text-zinc-300 hover:font-semibold cursor-pointer"
 				>
-					<UserRoundPlus /> Add Customer
+					<UserRoundPlus />
+					Add to Queue
 				</button>
 			</form>
 		</div>
