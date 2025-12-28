@@ -1,7 +1,5 @@
-import React from "react";
-
-const ThemeToggler = () => {
+function ThemeToggler() {
 	return <div>ThemeToggler</div>;
-};
+}
 
 export default ThemeToggler;

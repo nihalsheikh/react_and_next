@@ -1,7 +1,5 @@
-import React from "react";
-
-const BasicProps = () => {
-	return <div className="text-zinc-50">BasicProps</div>;
-};
+function BasicProps() {
+	return <div>BasicProps</div>;
+}
 
 export default BasicProps;

@@ -1,7 +1,5 @@
-import React from "react";
-
-const RefProps = () => {
+function RefProps() {
 	return <div>RefProps</div>;
-};
+}
 
 export default RefProps;

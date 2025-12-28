@@ -1,7 +1,5 @@
-import React from "react";
-
-const ChildrenProps = () => {
+function ChildrenProps() {
 	return <div>ChildrenProps</div>;
-};
+}
 
 export default ChildrenProps;
